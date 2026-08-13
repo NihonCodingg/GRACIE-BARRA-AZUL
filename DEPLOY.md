@@ -33,8 +33,26 @@ não precisar re-testar.
 - [x] Zero imagens servidas cruas — as 15 passam pelo otimizador
 - [x] Lupa de hover (Lens) agora só carrega a imagem no primeiro hover;
       antes puxava os PNGs originais de 2 MB no carregamento da página
+- [x] Vídeo do Hero comprimido: **12,46 MB → 1,93 MB** (−84,5%), sem
+      perda visível (SSIM 0,989 contra o original) e sem a trilha de
+      áudio, que o site nunca toca. Metadados movidos para o início do
+      arquivo, então ele começa a rodar antes de terminar de baixar
 - [x] Vídeo do Hero não carrega em conexão lenta nem com economia de
       dados ligada (a foto do Hero cobre o mesmo papel)
+- [x] Peso total de mídia da página: **15,24 MB → 2,21 MB**
+
+O vídeo original, sem compressão, continua guardado em
+`VIDEO DO SITE/VIDEO PARA USAR NO SITE.mp4`, fora do repositório. Para
+gerar `public/videos/hero.mp4` de novo a partir dele:
+
+```bash
+ffmpeg -i "VIDEO PARA USAR NO SITE.mp4" -an -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart hero.mp4
+```
+
+`-an` descarta o áudio (o vídeo toca mudo e a faixa sozinha custava
+200 KB), `-crf 26` foi escolhido medindo: sobe para 2,54 MB no CRF 23
+com ganho de qualidade imperceptível, e `+faststart` põe os metadados no
+início do arquivo para ele começar a tocar antes de baixar inteiro.
 
 ### Responsividade
 
@@ -120,30 +138,6 @@ não precisar re-testar.
 ---
 
 ## 4. Itens abertos
-
-### O vídeo do Hero pesa 12,5 MB
-
-É o maior custo da página, e de longe: 12,5 MB para 5 segundos de vídeo,
-contra 0,28 MB de todas as imagens somadas. Em 4G isso são vários
-segundos com o CTA principal esperando.
-
-Já existem duas proteções no código — o vídeo não carrega em conexão
-lenta nem com economia de dados, e a foto do Hero aparece primeiro e
-segura o LCP. Mas o arquivo continua pesado para quem está numa conexão
-boa.
-
-Não comprimi porque não há `ffmpeg` disponível nesta máquina. Para
-resolver, com `ffmpeg` instalado, a partir da raiz do projeto:
-
-```bash
-ffmpeg -i "../../VIDEO DO SITE/VIDEO PARA USAR NO SITE.mp4" -an -c:v libx264 -crf 28 -preset slow -movflags +faststart public/videos/hero.mp4
-```
-
-O `-an` remove a trilha de áudio, que é peso puro: o vídeo toca mudo no
-site e nunca será ouvido. O `-movflags +faststart` move os metadados para
-o começo do arquivo, para o vídeo começar a tocar antes de terminar de
-baixar. Espere algo entre 1,5 MB e 3 MB, sem diferença visível para um
-fundo escurecido por gradiente.
 
 ### Informações que dependem da academia
 
