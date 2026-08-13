@@ -26,7 +26,7 @@ const instructor = {
 
 export function Instructors() {
   return (
-    <section className="border-t border-border bg-card/40 py-20 lg:py-28">
+    <section className="border-t border-border bg-card/40 py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Professor"

@@ -97,8 +97,23 @@ export function Hero() {
           <HeroVideo />
         </div>
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+      {/* Escurecimento do desktop: horizontal, porque lá o texto ocupa
+          só a metade esquerda e a direita fica livre para a foto e para
+          o recorte do Mestre. */}
+      <div className="absolute inset-0 max-lg:hidden bg-gradient-to-r from-background via-background/85 to-background/30" />
+      <div className="absolute inset-0 max-lg:hidden bg-gradient-to-t from-background via-transparent to-background/40" />
+
+      {/* No celular o mesmo gradiente horizontal não funciona: o texto
+          passa a ocupar a largura inteira e a ponta direita, com só 30%
+          de cobertura, deixava a foto brigar com o parágrafo. Aqui o
+          escurecimento é vertical — leve no topo, onde a imagem ainda
+          respira, e fechando conforme desce até os CTAs. */}
+      {/* A parada intermediária fica em 38% de propósito: é onde o texto
+          começa. Acima disso a cobertura é leve e a imagem respira; a
+          partir dali fecha para 90%, que é o que o desktop já faz na
+          faixa esquerda onde mora o texto. Sem isso, um quadro claro do
+          vídeo passava por trás do parágrafo. */}
+      <div className="absolute inset-0 lg:hidden bg-gradient-to-b from-background/30 via-background/90 via-38% to-background" />
 
       {/* Recorte do Mestre Marcelo "quebrando" a base do Hero — mesma
           ideia de composição do hero oficial da Gracie Barra (referência

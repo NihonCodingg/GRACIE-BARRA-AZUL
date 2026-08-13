@@ -48,7 +48,7 @@ export function Header() {
           scrolled ? 'h-14' : 'h-16 lg:h-20',
         )}
       >
-        <a href="#top" className="flex items-center gap-2" aria-label="Gracie Barra Pirituba - início">
+        <a href="#top" className="flex items-center gap-2 max-sm:min-h-11" aria-label="Gracie Barra Pirituba - início">
           <Image src="/images/logo.png" alt="" width={40} height={40} className="size-9" preload />
           <span className="hidden font-display text-sm font-semibold uppercase leading-tight tracking-wide sm:block">
             <StaggerChars text="Gracie Barra" duration={0.4} delay={0.02} className="text-inherit" />
@@ -86,7 +86,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-10 items-center justify-center rounded-sm text-foreground lg:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-sm text-foreground lg:hidden"
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={open}
         >

@@ -19,7 +19,7 @@ const steps = [
 
 export function Methodology() {
   return (
-    <section id="metodologia" className="relative overflow-hidden border-t border-border py-20 lg:py-28">
+    <section id="metodologia" className="relative overflow-hidden border-t border-border py-20 max-sm:py-14 lg:py-28">
       {/* Motion Grid (ScrollX UI): textura de fundo sutil, recolorida pra
           vermelho da marca em baixíssima opacidade — só uma vibração de
           fundo, não um elemento que compete com o conteúdo. */}

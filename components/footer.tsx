@@ -32,9 +32,13 @@ export function Footer() {
                   {/* Mesmo Stagger Chars (ScrollX UI) do menu do topo:
                       os links de navegação do site inteiro compartilham
                       a mesma assinatura de hover. */}
+                  {/* No celular o link vira um alvo de toque de 44px de
+                      altura — o mínimo recomendado, e o dobro dos 22px
+                      que a linha de texto tinha sozinha. No desktop o
+                      alvo é o ponteiro do mouse, então nada muda. */}
                   <a
                     href={link.href}
-                    className="inline-block text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="inline-block text-sm text-muted-foreground transition-colors hover:text-primary max-sm:flex max-sm:min-h-11 max-sm:items-center"
                   >
                     <StaggerChars
                       text={link.label}
@@ -58,7 +62,7 @@ export function Footer() {
                   href={whatsappLink('Olá! Gostaria de agendar uma aula na Gracie Barra Pirituba.')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 transition-colors hover:text-primary"
+                  className="group inline-flex items-center gap-2 transition-colors hover:text-primary max-sm:min-h-11"
                 >
                   <WhatsAppIcon className="size-4 transition-transform duration-300 group-hover:scale-110" />
                   WhatsApp
@@ -69,7 +73,7 @@ export function Footer() {
                   href={site.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 transition-colors hover:text-primary"
+                  className="group inline-flex items-center gap-2 transition-colors hover:text-primary max-sm:min-h-11"
                 >
                   <InstagramIcon className="size-4 transition-transform duration-300 group-hover:scale-110" />@{site.instagramHandle}
                 </a>

@@ -22,7 +22,7 @@ const feed = [
 
 export function Instagram() {
   return (
-    <section id="instagram" className="border-t border-border bg-card/40 py-20 lg:py-28">
+    <section id="instagram" className="border-t border-border bg-card/40 py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Instagram"

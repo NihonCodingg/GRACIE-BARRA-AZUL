@@ -7,7 +7,7 @@ import { whatsappLink } from '@/lib/site'
 
 export function Schedule() {
   return (
-    <section id="horarios" className="border-t border-border bg-card/40 py-20 lg:py-28">
+    <section id="horarios" className="border-t border-border bg-card/40 py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Turmas e horários"

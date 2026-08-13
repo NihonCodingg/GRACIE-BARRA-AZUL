@@ -30,7 +30,7 @@ const blocks = [
 
 export function ForWho() {
   return (
-    <section className="border-t border-border py-20 lg:py-28">
+    <section className="border-t border-border py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Para quem é"
@@ -38,7 +38,7 @@ export function ForWho() {
           description="Toque no seu perfil e veja por onde começar."
         />
 
-        <RevealGroup className="mt-14 grid gap-4 sm:grid-cols-2">
+        <RevealGroup className="mt-14 grid gap-4 max-sm:mt-8 sm:grid-cols-2">
           {blocks.map((b, i) => (
             <RevealItem key={b.title}>
               <ExpandableCard

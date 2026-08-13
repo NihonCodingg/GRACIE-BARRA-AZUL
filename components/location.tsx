@@ -12,7 +12,7 @@ export function Location() {
   const mapsDir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.mapsQuery)}`
 
   return (
-    <section id="localizacao" className="border-t border-border py-20 lg:py-28">
+    <section id="localizacao" className="border-t border-border py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <RevealGroup stagger={0.1}>
           <RevealItem className="mb-4 inline-flex items-center gap-2 border-l-2 border-primary pl-3">

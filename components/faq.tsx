@@ -90,7 +90,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="border-t border-border bg-card/40 py-20 lg:py-28">
+    <section id="faq" className="border-t border-border bg-card/40 py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading eyebrow="FAQ" title="Ainda tem alguma dúvida?" align="center" />
 

@@ -46,7 +46,7 @@ const SPOTLIGHT_COLOR = 'var(--decor-rgb)'
 
 export function Benefits() {
   return (
-    <section id="jiu-jitsu" className="border-t border-border bg-card/40 py-20 lg:py-28">
+    <section id="jiu-jitsu" className="border-t border-border bg-card/40 py-20 max-sm:py-14 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Jiu-Jitsu"
@@ -64,7 +64,7 @@ export function Benefits() {
           />
         </p>
 
-        <RevealGroup stagger={0.08} className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup stagger={0.08} className="mt-10 grid gap-6 max-sm:mt-8 max-sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {benefits.map((b) => (
             <RevealItem key={b.title}>
               {/* Card Tilt (ScrollX UI): inclinação 3D real via contexto

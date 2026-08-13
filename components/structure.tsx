@@ -20,7 +20,7 @@ const facilities = [
 
 export function Structure() {
   return (
-    <section className="border-t border-border py-20 lg:pb-0 lg:pt-28">
+    <section className="border-t border-border py-20 max-sm:py-14 lg:pb-0 lg:pt-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Estrutura"
@@ -32,7 +32,7 @@ export function Structure() {
       {/* Parallax Cards (ScrollX UI): pilha de fotos que gruda no topo e
           empilha conforme o scroll — a seção-showcase da estrutura. */}
       <ParallaxCards
-        className="mt-14"
+        className="mt-14 max-sm:mt-8"
         cardHeight="62vh"
         cards={facilities.map((f) => ({
           cardClassName: 'bg-background',
