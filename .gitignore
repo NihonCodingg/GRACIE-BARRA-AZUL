@@ -13,3 +13,10 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+Thumbs.db
+
+# Build/cache artifacts (gerados, não versionados)
+/out/
+next-env.d.ts
+tsconfig.tsbuildinfo
+.impeccable/

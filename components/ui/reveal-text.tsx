@@ -73,8 +73,23 @@ const RevealText: React.FC<RevealTextProps> = ({
 
   const animationValues = getAnimationValues();
 
+  // O overflow-hidden aqui não esconde texto deslizando — o texto só faz
+  // fade; ele existe só para recortar a caixa de cobertura (absolute
+  // inset-0) nos limites da palavra. Só que a altura da caixa vem do
+  // line-height, e os headlines do site usam leading apertado (0.95).
+  // Resultado: em português, a cedilha de "COMEÇA" caía fora do box e
+  // sumia — o Hero lia "COMECA". Descendentes de 'g'/'p'/'ç' e acentos
+  // altos ('Ã') estouram o mesmo limite.
+  //
+  // O padding vertical devolve o espaço do glifo (a caixa de cobertura
+  // cresce junto, o que é o certo: ela precisa cobrir a palavra inteira)
+  // e a margem negativa equivalente cancela o ganho no fluxo, mantendo o
+  // ritmo entre as linhas exatamente como estava. Em em, acompanha
+  // qualquer tamanho de fonte.
+  const glyphRoom = 'py-[0.3em] my-[-0.3em]'
+
   const renderWord = (word: string, i: number) => (
-    <span key={i} className='relative inline-block overflow-hidden mr-2'>
+    <span key={i} className={cn('relative inline-block overflow-hidden mr-2', glyphRoom)}>
       <motion.span
         variants={{
           initial: animationValues.initial,
@@ -118,7 +133,7 @@ const RevealText: React.FC<RevealTextProps> = ({
   }
 
   return (
-    <span ref={ref} className='relative inline-block overflow-hidden'>
+    <span ref={ref} className={cn('relative inline-block overflow-hidden', glyphRoom)}>
       <motion.span
         variants={{
           initial: animationValues.initial,

@@ -57,6 +57,36 @@ const useIsTouchDevice = () => {
   return isTouch;
 };
 
+// Altura de cada "slot" da pilha de caracteres.
+//
+// O original usava 1em, mas com line-height 1 a tinta do glifo não cabe
+// em 1em: a descendente de g/p/q/ç desce cerca de 0.16em abaixo da
+// caixa. Isso causava dois defeitos ao mesmo tempo:
+//
+//  1. o rabinho do caractere visível era cortado no rodapé do slot;
+//  2. pior, em caracteres de índice par a cópia de hover é empilhada
+//     ACIMA da visível — e a descendente dela invadia o topo da janela,
+//     desenhando um risco solto sobre a letra. Era isso que aparecia em
+//     "Metodolo(g)ia" e "De(p)oimentos" no rodapé.
+//
+// A folga precisa existir dos DOIS lados. Abaixo, para a descendente.
+// Acima, porque em caixa alta o acento de Á/Ã/Ê sobe além da altura das
+// maiúsculas: com o slot justo, "TURMAS E HORÁRIOS" era exibido como
+// "HORARIOS", sem acento nenhum.
+//
+// 1.4em de altura com 0.2em de recuo no topo acomoda os dois extremos
+// (a tinta vai de ~-0.2em a ~+1.16em em relação à caixa de linha). O
+// percurso da animação continua sendo 50% da pilha, então as translações
+// seguem válidas sem nenhuma outra mudança.
+const SLOT_H = 'h-[1.4em]'
+const SLOT_PT = 'pt-[0.2em]'
+
+// A janela recortada é inline-block com overflow hidden, então o CSS usa
+// a borda inferior dela como linha de base. Crescer o slot empurraria o
+// texto para cima em relação à copy vizinha; a margem negativa devolve
+// exatamente a folga adicionada, preservando o ritmo vertical original.
+const SLOT_BASELINE_FIX = 'mb-[-0.2em]'
+
 const getInitialY = (
   direction: StaggerCharsProps['direction'],
   isEven: boolean,
@@ -210,7 +240,11 @@ const StaggerChars = React.memo<StaggerCharsProps>(
             return (
               <span
                 key={index}
-                className='inline-block h-[1em] align-baseline overflow-hidden transform-gpu will-change-transform relative'
+                className={cn(
+                  'inline-block align-baseline overflow-hidden transform-gpu will-change-transform relative',
+                  SLOT_H,
+                  SLOT_BASELINE_FIX,
+                )}
                 style={{ lineHeight: 1 }}
                 aria-hidden='true'
               >
@@ -227,7 +261,9 @@ const StaggerChars = React.memo<StaggerCharsProps>(
                   {isEven && (
                     <span
                       className={cn(
-                        'block h-[1em] leading-none',
+                        'block leading-none',
+                        SLOT_H,
+                        SLOT_PT,
                         hoverClassName,
                       )}
                       style={{ lineHeight: 1 }}
@@ -236,7 +272,7 @@ const StaggerChars = React.memo<StaggerCharsProps>(
                     </span>
                   )}
                   <span
-                    className='block h-[1em] leading-none'
+                    className={cn('block leading-none', SLOT_H, SLOT_PT)}
                     style={{ lineHeight: 1 }}
                   >
                     {isSpace ? '\u00A0' : char}
@@ -244,7 +280,9 @@ const StaggerChars = React.memo<StaggerCharsProps>(
                   {!isEven && (
                     <span
                       className={cn(
-                        'block h-[1em] leading-none',
+                        'block leading-none',
+                        SLOT_H,
+                        SLOT_PT,
                         hoverClassName,
                       )}
                       style={{ lineHeight: 1 }}

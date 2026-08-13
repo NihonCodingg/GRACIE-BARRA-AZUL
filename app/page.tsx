@@ -14,10 +14,12 @@ import { Faq } from '@/components/faq'
 import { FinalCta } from '@/components/final-cta'
 import { Footer } from '@/components/footer'
 import { WhatsAppFloat } from '@/components/whatsapp-float'
+import { StructuredData } from '@/components/structured-data'
 
 export default function Page() {
   return (
     <>
+      <StructuredData />
       <Header />
       <main>
         <Hero />

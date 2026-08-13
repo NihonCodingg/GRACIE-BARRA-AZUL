@@ -1,33 +1,111 @@
-# gracie-barra-pirituba
+# Gracie Barra Pirituba
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Landing page da Gracie Barra Pirituba — academia de Jiu-Jitsu em Pirituba, São Paulo.
 
-## Built with v0
+O objetivo do site é gerar contato no WhatsApp e agendamento de aula
+experimental; o segundo objetivo é levar tráfego para o Instagram da
+academia.
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+## Stack
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_6oC9qAbYZhSOOKY8fn0Znz6ltkFb)
+| Camada | Escolha |
+| --- | --- |
+| Framework | Next.js 16 (App Router, React Server Components, Turbopack) |
+| Linguagem | TypeScript 5.7 (strict) |
+| Estilo | Tailwind CSS v4 (CSS-first, sem `tailwind.config.js`) |
+| Componentes | shadcn/ui (estilo `base-nova`) sobre `@base-ui/react` |
+| Motion | GSAP + ScrollTrigger, Motion, Anime.js, Lenis |
 
-## Getting Started
+Não existe `tailwind.config.js`: na v4 os tokens são declarados em CSS,
+dentro de `app/globals.css` (`@theme inline`).
 
-First, run the development server:
+## Rodando localmente
+
+```bash
+npm install
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O site sobe em <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | O que faz |
+| --- | --- |
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run start` | Sobe o build de produção |
+| `npm run typecheck` | Checagem de tipos sem emitir arquivos |
 
-## Learn More
+## As duas versões visuais (V1 e V2)
 
-To learn more, take a look at the following resources:
+O projeto tem duas identidades de cor, no mesmo código e nos mesmos
+componentes — o que muda são apenas os tokens de cor.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+| Versão | Paleta | Como acessar |
+| --- | --- | --- |
+| **V2** (publicada) | Vermelho + **azul** + preto + branco | `/` |
+| V1 (preservada) | Vermelho + preto + branco | `/?theme=v1` |
+
+A V2 é a versão publicada: o `data-theme="v2"` é renderizado no servidor,
+direto no `<html>` (`app/layout.tsx`), então chega pronto no HTML — sem
+flash e sem JavaScript no caminho crítico.
+
+A V1 continua inteira e recuperável. `?theme=v1` remove o atributo e a
+página cai nos valores de `:root`, que são a V1. Ela também está
+preservada no histórico do Git, no commit `V1: versão visual atual da
+landing page`.
+
+Estrutura, layout, tipografia, espaçamento, motion e responsividade são
+idênticos entre as duas. Só as cores mudam.
+
+### Papéis de cor da V2
+
+Cada cor tem uma função, e é isso que impede a paleta de virar decoração:
+
+- **Vermelho** — ação. CTAs, links, o que o visitante deve clicar.
+- **Azul** — estrutura e atmosfera. Fundos, bordas, brilhos, detalhes.
+- **Preto** — o chão da página.
+- **Branco** — conteúdo. Texto e leitura.
+
+Os tokens vivem em `app/globals.css`, no bloco `html[data-theme='v2']`.
+
+## Organização
+
+```
+app/
+  layout.tsx            metadata, fontes, tema publicado
+  page.tsx              composição das seções
+  globals.css           tokens de cor (V1 em :root, V2 em [data-theme])
+  opengraph-image.tsx   cartão de compartilhamento gerado no build
+  robots.ts / sitemap.ts
+components/
+  <secao>.tsx           uma seção da página por arquivo
+  motion/               primitivos de animação compartilhados
+  ui/                   componentes de biblioteca (shadcn + vendorizados)
+hooks/
+lib/
+  site.ts               fonte única de contato, endereço e links
+public/
+  images/  videos/
+```
+
+As seções continuam Server Components sempre que possível. A animação
+entra por componentes "slot" de cliente (`Reveal`, `RevealGroup`), então
+o JavaScript de motion não é cobrado em cima do conteúdo.
+
+## Conteúdo: o que é real
+
+Todo dado exibido foi confirmado, não inventado. Endereço verificado no
+Google Maps, telefone fornecido pela academia, grade de horários passada
+pelo cliente, biografia do Mestre Marcelo e depoimentos transcritos de
+avaliações reais do Google.
+
+Onde uma informação não pôde ser confirmada, ela ficou de fora em vez de
+ser preenchida por aproximação — ver `DEPLOY.md` para os itens que ainda
+dependem de confirmação da academia.
+
+## Publicação
+
+O passo a passo de deploy está em [DEPLOY.md](DEPLOY.md).

@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
-// TESTE VISUAL — fundo do Hero em vídeo, exclusivo da V2.
+// Fundo do Hero em vídeo, exclusivo da V2 (tema publicado).
 //
-// Como a V1 fica intocada: o <video> só é montado depois de checar, no
-// cliente, que data-theme === 'v2'. Na V1 o componente devolve null, e
+// O <video> só é montado depois de checar, no cliente, que
+// data-theme === 'v2'. Na V1 (?theme=v1) o componente devolve null, e
 // como o elemento nunca entra no DOM o navegador não baixa um byte
 // sequer do arquivo.
 //
@@ -25,7 +25,23 @@ export function HeroVideo() {
   const reducedMotion = useReducedMotion()
 
   useEffect(() => {
-    setIsV2(document.documentElement.dataset.theme === 'v2')
+    if (document.documentElement.dataset.theme !== 'v2') return
+
+    // O arquivo é pesado para um fundo decorativo. Em conexão lenta ou
+    // com economia de dados ligada, baixá-lo atrasaria o conteúdo que
+    // realmente converte (headline e CTA) e ainda gastaria a franquia do
+    // visitante — a foto do Hero, que já está carregada, cobre o mesmo
+    // papel visual. A API não existe no Safari/Firefox; ausente, o
+    // comportamento padrão é carregar.
+    const connection = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string }
+      }
+    ).connection
+    if (connection?.saveData) return
+    if (connection?.effectiveType && /^(slow-2g|2g|3g)$/.test(connection.effectiveType)) return
+
+    setIsV2(true)
   }, [])
 
   // Com prefers-reduced-motion o vídeo não entra: fundo em movimento
