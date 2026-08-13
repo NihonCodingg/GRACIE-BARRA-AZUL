@@ -54,7 +54,10 @@ export default function ParallaxCards({
           </div>
         ))}
       </div>
-      {trailingSpacer && <div className='h-[15vh] bg-background' />}
+      {/* O respiro final existe para a última foto não colar na seção
+          seguinte. No celular ele custa caro em rolagem para pouco
+          ganho visual, então encolhe pela metade. */}
+      {trailingSpacer && <div className='h-[15vh] max-sm:h-[8vh] bg-background' />}
     </div>
   );
 }

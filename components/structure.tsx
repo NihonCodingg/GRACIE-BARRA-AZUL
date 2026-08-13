@@ -31,9 +31,19 @@ export function Structure() {
 
       {/* Parallax Cards (ScrollX UI): pilha de fotos que gruda no topo e
           empilha conforme o scroll — a seção-showcase da estrutura. */}
+      {/* A altura do card define duas coisas de uma vez: o tamanho da
+          foto e o quanto de scroll a seção consome (é
+          quantidade de cards × altura). Como ela chega por style
+          inline, nenhuma variante do Tailwind a alcança — daí a custom
+          property, que pode ser redefinida dentro de uma media query.
+
+          No desktop segue 62vh, exatamente como estava. No celular cai
+          para 46vh: com 5 fotos isso encurta a seção em 80vh, quase uma
+          tela inteira de rolagem, e a foto continua ocupando quase todo
+          o quadrado da tela. */}
       <ParallaxCards
-        className="mt-14 max-sm:mt-8"
-        cardHeight="62vh"
+        className="mt-14 max-sm:mt-8 [--gb-card-h:62vh] max-sm:[--gb-card-h:46vh]"
+        cardHeight="var(--gb-card-h)"
         cards={facilities.map((f) => ({
           cardClassName: 'bg-background',
           content: (
