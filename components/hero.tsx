@@ -9,6 +9,7 @@ import { gsap } from '@/lib/gsap'
 import { CtaButton } from '@/components/cta-button'
 import { WhatsAppIcon } from '@/components/icons'
 import { ParallaxImage } from '@/components/motion/parallax-image'
+import { HeroVideo } from '@/components/motion/hero-video'
 import { Magnetic } from '@/components/motion/magnetic'
 import { ScrollIndicator } from '@/components/motion/scroll-indicator'
 import { RevealText } from '@/components/ui/reveal-text'
@@ -91,6 +92,9 @@ export function Hero() {
             sizes="100vw"
             strength={12}
           />
+          {/* Teste visual: na V2 o vídeo entra por cima da imagem depois
+              de carregar. Na V1 não renderiza nada. Ver hero-video.tsx. */}
+          <HeroVideo />
         </div>
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
