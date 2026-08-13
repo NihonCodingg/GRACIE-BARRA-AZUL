@@ -72,7 +72,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = React.memo(
           )}
 
           <CardContent className='p-4 md:p-6 relative z-10'>
-            <p className='text-sm md:text-base mb-4 leading-relaxed transition-colors duration-300 text-neutral-800 dark:text-neutral-200'>
+            <p className='text-sm md:text-base mb-4 leading-relaxed transition-colors duration-300 text-foreground/90'>
               "{testimonial.review}"
             </p>
 

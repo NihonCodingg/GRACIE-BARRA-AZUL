@@ -21,8 +21,9 @@ export function MotionGrid({
   speed = '30s',
   opacity = 0.08,
   direction = 'right',
-  // Vermelho da marca (#9A1E20) no lugar do verde/teal padrão do componente.
-  lineColor = '154, 30, 32',
+  // Cor de atmosfera do tema (vermelho na V1, azul na V2) no lugar do
+  // verde/teal padrão do componente. Ver --decor-rgb em globals.css.
+  lineColor = 'var(--decor-rgb)',
   lineWidth = '1px',
   gridSpacing = '20px',
   backgroundColor = 'transparent',

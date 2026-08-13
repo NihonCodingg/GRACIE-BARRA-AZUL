@@ -38,9 +38,11 @@ const benefits = [
   },
 ]
 
-// Vermelho da marca em RGB, para o spotlight (ScrollX UI SpotlightCard
-// espera "R, G, B") e para os componentes que aceitam classes de gradiente.
-const SPOTLIGHT_RED = '154, 30, 32'
+// O SpotlightCard (ScrollX UI) monta um rgba(${cor}, 0.15), então a cor
+// precisa chegar como componentes "R, G, B". Passando a var do tema, a
+// substituição acontece antes do parse do rgba() e o brilho acompanha a
+// versão: vermelho na V1, azul na V2. Ver --decor-rgb em globals.css.
+const SPOTLIGHT_COLOR = 'var(--decor-rgb)'
 
 export function Benefits() {
   return (
@@ -74,7 +76,7 @@ export function Benefits() {
                 <CardTilt tiltMaxAngle={10} scale={1.02} className="block h-full w-full">
                   <CardTiltContent className="h-full">
                     <SpotlightCard
-                      spotlightColor={SPOTLIGHT_RED}
+                      spotlightColor={SPOTLIGHT_COLOR}
                       className="h-full"
                       contentClassName="items-start justify-start text-left"
                     >

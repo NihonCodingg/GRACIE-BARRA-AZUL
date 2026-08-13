@@ -12,7 +12,8 @@ type StarBorderProps<T extends React.ElementType> = React.ComponentPropsWithoutR
 }
 
 // React Bits "Star Border", adaptado para a identidade Gracie Barra:
-// - cor padrão = vermelho da marca (era branco)
+// - cor padrão = cor de atmosfera do tema, --decor (era branco):
+//   vermelho na V1, azul na V2
 // - miolo usa os tokens do projeto (bg-card/border-border) no lugar do
 //   gradiente preto→cinza fixo do original
 // - raio segue o --radius do site (cantos quase retos) em vez do
@@ -26,7 +27,7 @@ const StarBorder = <T extends React.ElementType = 'div'>({
   as,
   className,
   contentClassName,
-  color = 'var(--color-primary)',
+  color = 'var(--color-decor)',
   speed = '6s',
   thickness = 1,
   children,

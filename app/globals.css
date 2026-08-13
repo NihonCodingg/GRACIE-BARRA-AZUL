@@ -23,6 +23,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-decor: var(--decor);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -120,6 +121,14 @@
   --sidebar-accent-foreground: oklch(0.97 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.448 0.16 25.9);
+
+  /* Cor "de atmosfera": glows, texturas e brilhos decorativos (não
+     ações). Existe como token próprio porque na V2 ela deixa de ser o
+     vermelho e passa a ser o azul — ver o bloco [data-theme='v2'].
+     --decor-rgb é a mesma cor em componentes RGB separados por vírgula,
+     para uso dentro de rgba(). */
+  --decor: oklch(0.448 0.16 25.9);
+  --decor-rgb: 154, 30, 32;
 }
 
 .dark {
@@ -155,6 +164,72 @@
   --sidebar-accent-foreground: oklch(0.97 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.448 0.16 25.9);
+
+  --decor: oklch(0.448 0.16 25.9);
+  --decor-rgb: 154, 30, 32;
+}
+
+/* ============================================================
+   TEMA V2 — vermelho + azul + preto + branco
+   ============================================================
+   Mesma página, mesmos componentes, mesmo motion: só os valores dos
+   tokens mudam. Ativado por ?theme=v2 (ver o script em app/layout.tsx).
+
+   Lógica de distribuição das cores, para não virar "quatro cores
+   jogadas aleatoriamente":
+
+     VERMELHO  = ação. CTAs, ícones, eyebrows, barras de destaque,
+                 foco. Tudo que pede um clique ou puxa o olho.
+     AZUL      = estrutura e atmosfera. O preto do fundo ganha
+                 temperatura fria (navy), as bordas ficam levemente
+                 azuladas e os elementos decorativos (glow do selo,
+                 textura da metodologia, spotlight dos cards) passam
+                 a ser azuis.
+     PRETO     = chão. Fundo e superfícies, agora em navy quase preto.
+     BRANCO    = conteúdo. Títulos e textos.
+
+   O seletor é html[data-theme='v2'] (0,1,1) de propósito: vence a
+   classe .dark (0,1,0) independentemente da ordem no arquivo.
+   ============================================================ */
+html[data-theme='v2'] {
+  color-scheme: dark;
+  --background: oklch(0.155 0.022 258);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.21 0.032 258);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.21 0.032 258);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.55 0.2 27);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.3 0.05 258);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.25 0.032 258);
+  --muted-foreground: oklch(0.75 0.025 258);
+  /* accent = azul (na V1 ele espelha o vermelho do primary) */
+  --accent: oklch(0.55 0.16 252);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  /* bordas com leve viés azul em vez do branco neutro da V1 */
+  --border: oklch(0.72 0.09 255 / 18%);
+  --input: oklch(0.72 0.09 255 / 24%);
+  --ring: oklch(0.55 0.2 27);
+  --chart-1: oklch(0.55 0.2 27);
+  --chart-2: oklch(0.55 0.16 252);
+  --chart-3: oklch(0.5 0.06 258);
+  --chart-4: oklch(0.4 0.05 258);
+  --chart-5: oklch(0.3 0.04 258);
+  --sidebar: oklch(0.155 0.022 258);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.55 0.2 27);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.3 0.05 258);
+  --sidebar-accent-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(0.72 0.09 255 / 18%);
+  --sidebar-ring: oklch(0.55 0.2 27);
+
+  /* atmosfera passa a ser azul */
+  --decor: oklch(0.55 0.16 252);
+  --decor-rgb: 12, 114, 203;
 }
 
 @layer base {
